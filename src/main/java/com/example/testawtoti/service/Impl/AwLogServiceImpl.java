@@ -26,21 +26,22 @@ public class AwLogServiceImpl implements AwLogService {
     private AwLogRepository awLogRepository;
 
     @Autowired
-    private AwHashtagRepository hashtagRepository;
-
-    @Autowired
     private AwHastagLogsRepository hashtagLogsRepository;
 
     @Autowired
     private AwHashtagService hashtagService;
 
+    @Override
     public CreateLogResponse saveLog(CreateLogRequest logRequest){
          Timestamp createdAt = Timestamp.valueOf(LocalDateTime.now());
 
+         //Pude haber ocupado DTO para las entidades pero se me ocurrio tarde
+
+        //Crea el Log y lo guarda
         AwLogEntity awLog =  new AwLogEntity(createdAt,logRequest.getHost(),logRequest.getDetails());
         awLogRepository.save(awLog);
 
-
+        //Guarda los datos en la tabla intermedia(hashtag_log) con sus correspondientes llaves foraneas
         for (int i=0;i<logRequest.getHashtags().size();i++) {
             AwHashtagEntity hashtagEntity = hashtagService.createHashtag(logRequest.getHashtags().get(i));
             AwHashtagLogs hashtagLog = new AwHashtagLogs(hashtagEntity, awLog);
@@ -50,8 +51,8 @@ public class AwLogServiceImpl implements AwLogService {
         return response;
     }
 
+    @Override
     public List<DatosLog> searchLogsByHashtagId(Integer hashtagId){
-        System.out.println(hashtagId);
             return awLogRepository.findLogsByHashtag(hashtagId);
     }
 

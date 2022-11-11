@@ -15,19 +15,21 @@ public class AwHashtagServiceImpl implements AwHashtagService {
 
     @Autowired
     private AwHashtagRepository hashtagRepository;
-
+    @Override
     public AwHashtagEntity createHashtag(String descripcion){
-            AwHashtagEntity hashtag = new AwHashtagEntity(descripcion);
-            if(searchHashtagIfExistsByDescription(hashtag.getDescription())==null){
-                AwHashtagEntity hashtagEntity = hashtagRepository.save(hashtag);
-                return hashtagEntity;
-            }else{
-                return searchHashtagIfExistsByDescription(hashtag.getDescription());
-            }
+        AwHashtagEntity hashtag = new AwHashtagEntity(descripcion);
 
+        //Retorna el hashtag o lo crea si no existe
+        if(searchHashtagIfExistsByDescription(hashtag.getDescription())==null){
+            AwHashtagEntity hashtagEntity = hashtagRepository.save(hashtag);
+            return hashtagEntity;
+        }else{
+            return searchHashtagIfExistsByDescription(hashtag.getDescription());
+        }
     }
-
+    @Override
     public AwHashtagEntity searchHashtagIfExistsByDescription(String description){
+        //Busca el hashtag a partir de la descripcion
         AwHashtagEntity hashtags;
         hashtags = hashtagRepository.findByDescription(description);
         if(hashtags!=null){
@@ -36,7 +38,7 @@ public class AwHashtagServiceImpl implements AwHashtagService {
             return null;
         }
     }
-
+    @Override
     public String updateHashtag(UpdateHashtagRequest request) {
             AwHashtagEntity existingHashtag = hashtagRepository.findById(request.getId()).orElse(null);
             if (existingHashtag==null){

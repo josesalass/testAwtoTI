@@ -7,6 +7,7 @@ import com.example.testawtoti.model.response.DatosLog;
 import com.example.testawtoti.service.AwHashtagService;
 import com.example.testawtoti.service.AwLogService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,17 +25,17 @@ public class HashtagLogsController {
 
 
     @GetMapping("/logs/hashtag/{hashtagId}")
-    public List<DatosLog> searchLogsByHashtagId(@PathVariable int hashtagId ){
-        return logService.searchLogsByHashtagId(hashtagId);
+    public ResponseEntity<List<DatosLog>> searchLogsByHashtagId(@PathVariable int hashtagId ){
+        return new ResponseEntity<>(logService.searchLogsByHashtagId(hashtagId),HttpStatus.OK);
     }
 
     @PostMapping("/logs")
     public ResponseEntity<CreateLogResponse> createLog(@RequestBody CreateLogRequest request) {
-        return ResponseEntity.ok(logService.saveLog(request));
+        return new ResponseEntity<>(logService.saveLog(request), HttpStatus.CREATED);
     }
 
     @PutMapping("/hashtags")
-    public String updateHashtagDescription(@RequestBody UpdateHashtagRequest request) {
-        return hashtagService.updateHashtag(request);
+    public ResponseEntity<String> updateHashtagDescription(@RequestBody UpdateHashtagRequest request) {
+        return new ResponseEntity<>(hashtagService.updateHashtag(request), HttpStatus.OK) ;
     }
 }
