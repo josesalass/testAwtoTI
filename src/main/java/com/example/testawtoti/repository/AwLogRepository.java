@@ -2,11 +2,9 @@ package com.example.testawtoti.repository;
 
 import com.example.testawtoti.model.AwLogEntity;
 import com.example.testawtoti.model.query.FindLogsByHashtagQuery;
-import com.example.testawtoti.model.request.GetLogsByHashtagIdRequest;
 import com.example.testawtoti.model.response.DatosLog;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

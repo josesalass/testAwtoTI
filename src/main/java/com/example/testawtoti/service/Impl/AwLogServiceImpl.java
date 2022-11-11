@@ -5,7 +5,6 @@ import com.example.testawtoti.model.AwHashtagEntity;
 import com.example.testawtoti.model.AwHashtagLogs;
 import com.example.testawtoti.model.AwLogEntity;
 import com.example.testawtoti.model.request.CreateLogRequest;
-import com.example.testawtoti.model.request.GetLogsByHashtagIdRequest;
 import com.example.testawtoti.model.response.CreateLogResponse;
 import com.example.testawtoti.model.response.DatosLog;
 import com.example.testawtoti.repository.AwHashtagRepository;
@@ -44,7 +43,6 @@ public class AwLogServiceImpl implements AwLogService {
 
         for (int i=0;i<logRequest.getHashtags().size();i++) {
             AwHashtagEntity hashtagEntity = hashtagService.createHashtag(logRequest.getHashtags().get(i));
-            System.out.println(hashtagEntity);
             AwHashtagLogs hashtagLog = new AwHashtagLogs(hashtagEntity, awLog);
             hashtagLogsRepository.save(hashtagLog);
         }

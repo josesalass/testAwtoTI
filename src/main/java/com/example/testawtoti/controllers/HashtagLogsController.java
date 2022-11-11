@@ -1,9 +1,6 @@
 package com.example.testawtoti.controllers;
 
-import com.example.testawtoti.model.AwHashtagEntity;
-import com.example.testawtoti.model.AwLogEntity;
 import com.example.testawtoti.model.request.CreateLogRequest;
-import com.example.testawtoti.model.request.GetLogsByHashtagIdRequest;
 import com.example.testawtoti.model.request.UpdateHashtagRequest;
 import com.example.testawtoti.model.response.CreateLogResponse;
 import com.example.testawtoti.model.response.DatosLog;
@@ -28,7 +25,6 @@ public class HashtagLogsController {
 
     @GetMapping("/logs/hashtag/{hashtagId}")
     public List<DatosLog> searchLogsByHashtagId(@PathVariable int hashtagId ){
-        System.out.println(hashtagId);
         return logService.searchLogsByHashtagId(hashtagId);
     }
 

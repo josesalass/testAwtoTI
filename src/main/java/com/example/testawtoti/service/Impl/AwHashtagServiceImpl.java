@@ -30,7 +30,6 @@ public class AwHashtagServiceImpl implements AwHashtagService {
     public AwHashtagEntity searchHashtagIfExistsByDescription(String description){
         AwHashtagEntity hashtags;
         hashtags = hashtagRepository.findByDescription(description);
-        System.out.println("hashtag " + hashtags);
         if(hashtags!=null){
             return hashtags;
         }else{
